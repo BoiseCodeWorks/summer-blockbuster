@@ -1,28 +1,31 @@
 using System;
 using System.Collections.Generic;
+using blockbuster.Interfaces;
 
 namespace blockbuster.Models
 {
     class Store
     {
         public string Location { get; set; }
-        public List<Movie> AvailableMovies { get; private set; }
-        public List<Movie> RentedMovies { get; private set; }
+        public List<IRentable> AvailableRentals { get; private set; }
+        public List<IRentable> Rented { get; private set; }
+
+        public List<IPurchasable> StuffToBuy { get; private set; }
 
 
         //add movies to available
-        public void AddMovie(Movie m)
+        public void AddMovie(IRentable m)
         {
-            AvailableMovies.Add(m);
+            AvailableRentals.Add(m);
         }
 
         public void Print(bool available)
         {
-            List<Movie> movies = AvailableMovies;
+            List<IRentable> movies = AvailableRentals;
             System.Console.WriteLine("Movies: ");
             if (!available)
             {
-                movies = RentedMovies;
+                movies = Rented;
             }
             int counter = 1;
             foreach (var movie in movies)
@@ -45,35 +48,35 @@ namespace blockbuster.Models
         //RETURN MOVIE
         public void ExchangeMovie(string choice, bool available)
         {
-            List<Movie> movies = AvailableMovies;
+            List<IRentable> movies = AvailableRentals;
             if (!available)
             {
-                movies = RentedMovies;
+                movies = Rented;
             }
-            Movie movie = ValidateSelection(choice, movies);
+            IRentable movie = ValidateSelection(choice, movies);
             if (movie != null)
             {
                 if (available)
                 {
-                    if (RentedMovies.Count > 1)
+                    if (Rented.Count > 1)
                     {
                         System.Console.WriteLine("You already have 2 movies out! Please Return first");
                         return;
                     }
-                    AvailableMovies.Remove(movie);
-                    RentedMovies.Add(movie);
+                    AvailableRentals.Remove(movie);
+                    Rented.Add(movie);
                     System.Console.WriteLine($"Enjoy {movie.Title}");
                     return;
                 }
-                AvailableMovies.Add(movie);
-                RentedMovies.Remove(movie);
+                AvailableRentals.Add(movie);
+                Rented.Remove(movie);
                 System.Console.WriteLine($"Thank you for returning {movie.Title}");
                 return;
             }
             System.Console.WriteLine("Invalid Selection");
         }
 
-        private Movie ValidateSelection(string choice, List<Movie> movies)
+        private IRentable ValidateSelection(string choice, List<IRentable> movies)
         {
             if (Int32.TryParse(choice, out int index))
             {
@@ -89,8 +92,8 @@ namespace blockbuster.Models
         public Store(string location)
         {
             Location = location;
-            AvailableMovies = new List<Movie>();
-            RentedMovies = new List<Movie>();
+            AvailableRentals = new List<IRentable>();
+            Rented = new List<IRentable>();
         }
 
 

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using blockbuster.Interfaces;
 using blockbuster.Models;
 
 namespace blockbuster
@@ -10,17 +11,37 @@ namespace blockbuster
         {
             Console.Clear();
             Store b2319 = new Store("Monsters Inc. Local Store");
-            DvD jp = new DvD("Jurassic Park", "Dinosaurs kill people, its great fun", 1993, 1, new List<Languages>() { Languages.en, Languages.sp });
             DvD jp2 = new DvD("Jurassic Park 2", "More Dinosaurs kill people, its great fun", 1995, 1, new List<Languages>() { Languages.en, Languages.sp });
             DvD jp3 = new DvD("Jurassic Park 3", "Even More Dinosaurs kill people, its great fun", 1998, 1, new List<Languages>() { Languages.en, Languages.sp });
             Actor jeffGoldblum = new Actor("Jeff Goldblum");
-            jp.AddActor(jeffGoldblum);
+
+
+            DvD jp = new DvD("Jurassic Park", "Dinosaurs kill people, its great fun", 1993, 1, new List<Languages>() { Languages.en, Languages.sp });
+
+
+            Movie mjp = (Movie)jp;
+            VHS vjp = (VHS)mjp;
+
+
+            mjp.AddActor(jeffGoldblum);
+            IRentable rjp = (IRentable)mjp;
+
+
+
+
             VHS id = new VHS("Independence Day", "In the epic adventure film `Independence Day,' strange phenomena surface around the globe. The skies ignite. Terror races through the world's major cities. As these extraordinary events unfold, it becomes increasingly clear that a force of incredible magnitude has arrived. Its mission: total annihilation over the Fourth of July weekend. The last hope to stop the destruction is an unlikely group of people united by fate and unimaginable circumstances.", 1996);
             id.AddActor(jeffGoldblum);
+
+            // IRentable rid = (IRentable)id; THIS WILL FAIL AT RUNTIME
+
+            GameConsole xbox = new GameConsole("Xbox");
+
+
             b2319.AddMovie(jp);
             b2319.AddMovie(jp2);
             b2319.AddMovie(jp3);
-            b2319.AddMovie(id);
+            b2319.AddMovie(xbox);
+            //b2319.AddMovie(id);
 
             string title = @"
   ____  _            _    _               _            
