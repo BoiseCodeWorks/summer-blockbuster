@@ -1,3 +1,4 @@
+using System.ComponentModel.DataAnnotations;
 using blockbuster.Interfaces;
 
 namespace blockbuster.Models
@@ -16,6 +17,7 @@ namespace blockbuster.Models
                 Type = value;
             }
         }
+
         public int RentCount { get; set; }
         public bool Available { get; set; }
         public string Title { get; set; }

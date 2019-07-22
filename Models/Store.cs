@@ -21,14 +21,14 @@ namespace blockbuster.Models
 
         public void Print(bool available)
         {
-            List<IRentable> movies = AvailableRentals;
+            var rentables = AvailableRentals;
             System.Console.WriteLine("Movies: ");
             if (!available)
             {
-                movies = Rented;
+                rentables = Rented;
             }
             int counter = 1;
-            foreach (var movie in movies)
+            foreach (var movie in rentables)
             {
                 Console.WriteLine($"{counter}. {movie.Title}");
                 counter++;
